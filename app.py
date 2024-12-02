@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, url_for
 app = Flask(__name__)
+app.config.from_pyfile("config.py")
 
 @app.route('/homepage')
 def main():
@@ -23,6 +24,8 @@ def admin():
     to_url =   url_for("greetings", name="administrator", _external=True)  #http://localhost:8080/hi/administraor"
     print(to_url)
     return redirect(to_url)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

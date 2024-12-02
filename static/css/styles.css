@@ -1,0 +1,118 @@
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+header {
+    background: #4CAF50; /* Можна змінити, якщо потрібно */
+    color: white;
+    padding: 20px 10px;
+    text-align: center;
+}
+
+h1 {
+    color: white;
+}
+
+section {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Власні стилі для навігації */
+nav {
+    text-align: center;
+    margin: 10px 0;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #4CAF50;
+    font-weight: bold;
+    display: inline-block;
+}
+
+nav a:hover {
+    color: #333;
+}
+
+h2 {
+    color: #4CAF50;
+}
+
+img {
+    display: block;
+    max-width: 150px;
+    margin: 10px auto;
+    border-radius: 50%;
+}
+
+/* Стилі для футера */
+footer {
+    background: #4CAF50; /* Можна змінити, якщо потрібно */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Медіа-запити для мобільних пристроїв */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 5px;
+    }
+
+    nav a {
+        display: block;
+        margin: 10px 0;
+    }
+
+    section {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    img {
+        max-width: 100px;
+    }
+
+    footer {
+        padding: 15px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    section {
+        padding: 10px;
+    }
+
+    nav a {
+        font-size: 16px;
+    }
+
+    footer p {
+        font-size: 12px;
+    }
+}

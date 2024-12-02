@@ -4,11 +4,10 @@
     
     {% block content %}
 
-
     <section id="about">
         <h2>Про себе</h2>
         <p>Я є професіоналом у своїй галузі з багаторічним досвідом. Мені подобається розвиватися, вивчати нові технології та вирішувати складні завдання.</p>
-        <img src="your-photo.jpg" alt="Фото профілю">
+        <img src="{{ url_for('static', filename='images/image.jpg') }}" alt="Фото профілю">
     </section>
 
     <section id="education">

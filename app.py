@@ -5,7 +5,7 @@ app.config.from_pyfile("config.py")
 
 @app.route('/')
 def main():
-    return render_template("hello.html")
+    return render_template("base1.html")
 
 @app.route('/homepage')
 def home():
@@ -16,9 +16,10 @@ def home():
 @app.route('/hi/<string:name>') #/hi/stas?age=30
 def greetings(name):
     name = name.upper()
-    age = request.args.get("age", 0, type=int)
+    age = request.args.get("age", None, type=int)
 
-    return f"Welcome (name=) (age=)", 200
+    return render_template("hi.html",
+                           name=name, age=age)
 
 @app.route('/admin')
 def admin():
@@ -30,6 +31,24 @@ def admin():
 def resume():
     page_title = "Резюме"
     return render_template('resume.html', title=page_title)
+
+posts = [
+    {"id": 1, 'title': 'My First Post', 'content': 'This is the content of my first post.', 'author': 'John Doe'},
+    {"id": 2, 'title': 'Another Day', 'content': 'Today I learned about Flask macros.', 'author': 'Jane Smith'},
+    {"id": 3, 'title': 'Flask and Jinja2', 'content': 'Jinja2 is powerful for templating.', 'author': 'Mike Lee'}
+]
+
+@app.route('/posts')
+def get_posts():
+    return render_template('posts.html', posts=posts)
+
+
+@app.route('/post/<int:id>')
+def detail_post(id):
+    if id > 3:
+        abort(404)
+    post = posts[id-1]
+    return render_template("detail_post.html", post=post)
 
 if __name__ == '__main__':
     app.run(debug=True)

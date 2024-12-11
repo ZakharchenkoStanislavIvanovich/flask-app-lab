@@ -1,17 +1,46 @@
 from . import bp
-from flask import render_template, redirect, request, url_for, session, flash
+from flask import render_template, redirect, request, url_for, session, flash, make_response
+from datetime import timedelta
 
 # Статично задані облікові дані
 VALID_USERNAME = "admin"
 VALID_PASSWORD = "12345"
 
-@bp.route("/profile")
+@bp.route("/profile", methods=["GET", "POST"])
 def get_profile():
-    if "username" in session:
-        username_value = session["username"]
-        return render_template("profile.html", username=username_value)
-    flash("Invalid session. Please log in.", "danger")
-    return redirect(url_for("user_name.login"))
+    if "username" not in session:
+        flash("Invalid session. Please log in.", "danger")
+        return redirect(url_for("user_name.login"))
+
+    username_value = session["username"]
+    cookies = request.cookies
+
+    if request.method == "POST":
+        action = request.form.get("action")
+        key = request.form.get("key")
+        value = request.form.get("value")
+        max_age = request.form.get("max_age", type=int)
+
+        if action == "add" and key and value:
+            response = make_response(render_template("profile.html", username=username_value, cookies=cookies))
+            response.set_cookie(key, value, max_age=max_age)
+            flash(f"Кукі '{key}' успішно додано.", "success")
+            return response
+
+        if action == "delete" and key:
+            response = make_response(render_template("profile.html", username=username_value, cookies=cookies))
+            response.set_cookie(key, '', expires=0)
+            flash(f"Кукі '{key}' успішно видалено.", "success")
+            return response
+
+        if action == "delete_all":
+            response = make_response(render_template("profile.html", username=username_value, cookies=cookies))
+            for cookie_key in request.cookies.keys():
+                response.set_cookie(cookie_key, '', expires=0)
+            flash("Усі кукі успішно видалено.", "success")
+            return response
+
+    return render_template("profile.html", username=username_value, cookies=cookies)
 
 @bp.route("/login", methods=["GET", "POST"])
 def login():
@@ -36,8 +65,6 @@ def logout():
     flash("Ви вийшли з системи.", "info")
     return redirect(url_for("user_name.login"))
 
-
-
 @bp.route('/hi/<string:name>') #/hi/stas?age=30
 def greetings(name):
     name = name.upper()
@@ -55,9 +82,8 @@ def admin():
 @bp.route('/set_cookie')
 def set_cookie():
     response = make_response('Кукі встановлений')
-    #response.set_cookie('username', 'student', expires=datetime.now()+timedelta(seconds=10))
     response.set_cookie('username', 'student', max_age=timedelta(seconds=60))
-    response.set_cookie('color', max_age=timedelta(seconds=60))
+    response.set_cookie('color', 'blue', max_age=timedelta(seconds=60))
     return response
 
 @bp.route('/get_cookie')

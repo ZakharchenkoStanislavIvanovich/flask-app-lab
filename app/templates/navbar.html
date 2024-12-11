@@ -1,8 +1,8 @@
 <nav>
-    <a href="#about">Про себе</a>
-    <a href="#education">Освіта</a>
-    <a href="#skills">Навички</a>
-    <a href="#experience">Досвід роботи</a>
+    <a href="{{ url_for('resume') }}#about">Про себе</a>
+    <a href="{{ url_for('resume') }}#education">Освіта</a>
+    <a href="{{ url_for('resume') }}#skills">Навички</a>
+    <a href="{{ url_for('resume') }}#experience">Досвід роботи</a>
     <a href="{{ url_for('user_name.login') }}">Увійти</a>
     <a href="{{ url_for('user_name.get_profile') }}">Профіль</a>
 </nav>

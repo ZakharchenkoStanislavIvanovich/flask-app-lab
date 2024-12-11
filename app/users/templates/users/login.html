@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %}Greeting Page{% endblock %}
+{% block title %}Login Page{% endblock %}
 
 {% block content %}
-
-<form action="" method="post">
-    Ім'я користувача: <input tyoe="text" name="login">
-    <input type="submit" value="Увійти">
-
+<form action="" method="post" class="mt-5">
+    <div class="mb-3">
+        <label for="username" class="form-label">Ім'я користувача:</label>
+        <input type="text" id="username" name="username" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Пароль:</label>
+        <input type="password" id="password" name="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Увійти</button>
+</form>
 {% endblock %}

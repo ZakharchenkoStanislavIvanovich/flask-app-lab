@@ -1,30 +1,41 @@
 from . import bp
-from flask import render_template, redirect, request, url_for, make_response, session, flash
-from datetime import timedelta
+from flask import render_template, redirect, request, url_for, session, flash
+
+# Статично задані облікові дані
+VALID_USERNAME = "admin"
+VALID_PASSWORD = "12345"
 
 @bp.route("/profile")
 def get_profile():
     if "username" in session:
         username_value = session["username"]
         return render_template("profile.html", username=username_value)
-    flash("Invalid: Session.", "danger")
+    flash("Invalid session. Please log in.", "danger")
     return redirect(url_for("user_name.login"))
 
-@bp.route("/login",  methods=['GET', 'POST'])
+@bp.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        username = request.form["login"]
-        session["username"] = username
-        flash("Success: session added successfully.", "success")
-        return redirect(url_for("user_name.get_profile"))
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        # Перевірка введених облікових даних
+        if username == VALID_USERNAME and password == VALID_PASSWORD:
+            session["username"] = username
+            flash("Вхід успішний!", "success")
+            return redirect(url_for("user_name.get_profile"))
+        else:
+            flash("Невірне ім'я користувача або пароль.", "danger")
+    
     return render_template("login.html")
 
 @bp.route('/logout')
 def logout():
     # Видалення користувача із сесії
     session.pop('username', None)
-    session.pop('age', None)
-    return redirect(url_for('user_name.get_profile'))
+    flash("Ви вийшли з системи.", "info")
+    return redirect(url_for("user_name.login"))
+
 
 
 @bp.route('/hi/<string:name>') #/hi/stas?age=30

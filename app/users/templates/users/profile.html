@@ -3,10 +3,15 @@
 {% block title %}Profile Page{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-5 {% if color_scheme == 'dark' %}bg-dark text-white{% else %}bg-light text-dark{% endif %}">
     <h1>Вітаю, {{ username }}!</h1>
 
     <a href="{{ url_for('user_name.logout') }}" class="btn btn-danger mb-3">Вийти</a>
+
+    <div class="mb-3">
+        <a href="{{ url_for('user_name.set_color_scheme', color='light') }}" class="btn btn-secondary">Світла схема</a>
+        <a href="{{ url_for('user_name.set_color_scheme', color='dark') }}" class="btn btn-dark">Темна схема</a>
+    </div>
 
     <h3>Поточні кукі</h3>
     <table class="table table-bordered">

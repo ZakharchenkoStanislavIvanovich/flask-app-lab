@@ -1,7 +1,8 @@
 from . import post_bp
-from flask import render_template, abort
+from flask import render_template, abort, flash, redirect, url_for
+from .forms import PostForm
 
-#posts
+# posts
 
 posts = [
     {"id": 1, 'title': 'My First Post', 'content': 'This is the content of my first post.', 'author': 'John Doe'},
@@ -13,10 +14,22 @@ posts = [
 def get_posts():
     return render_template('posts/posts.html', posts=posts)
 
-
 @post_bp.route('/<int:id>')
 def detail_post(id):
-    if id > 3:
+    if id > len(posts) or id < 1:
         abort(404)
-    post = posts[id-1]
+    post = posts[id - 1]
     return render_template("posts/detail_post.html", post=post)
+
+@post_bp.route('/add_post', methods=['GET', 'POST'])
+def add_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        content = form.content.data
+
+        new_id = len(posts) + 1
+        posts.append({"id": new_id, "title": title, "content": content, "author": "Admin"})
+        flash(f'Post "{title}" added successfully!', 'success')
+        return redirect(url_for('posts.get_posts'))
+    return render_template('posts/add_post.html', form=form)

@@ -1,12 +1,36 @@
 {% extends 'base.html' %}
-
+{% block title %}
+Add Post
+{% endblock %}
 {% block content %}
-<h2>Add New Post</h2>
-<form method="POST" action="" novalidate>
+<h2 class="my-4">Add New Post</h2>
+<form method="POST" action="" novalidate class="col-12 col-md-8 mx-auto">
     {{ form.hidden_tag() }}
+    
     {% from 'form_macros.html' import render_field %}
-    {{ render_field(form.title) }}
-    {{ render_field(form.content) }}
-    {{ form.submit(class="btn btn-primary") }}
+    
+    <div class="mb-3">
+        {{ render_field(form.title) }}
+    </div>
+    
+    <div class="mb-3">
+        {{ render_field(form.content) }}
+    </div>
+    
+    <div class="mb-3 form-check">
+
+        <input type="checkbox" class="form-check-input" id="is_active" name="is_active" {% if form.is_active.data %}checked{% endif %}>
+        <label class="form-check-label" for="is_active">Is this post active?</label>
+    </div>
+
+    <div class="mb-3">
+        {{ render_field(form.publish_date) }}
+    </div>
+    
+    <div class="mb-3">
+        {{ render_field(form.category) }}
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Add Post</button>
 </form>
 {% endblock %}

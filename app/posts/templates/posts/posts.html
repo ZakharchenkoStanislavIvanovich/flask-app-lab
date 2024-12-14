@@ -2,13 +2,19 @@
 
 {% block title %}Posts{% endblock %}
 
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('posts.static', filename='css/posts.css') }}">
+{% endblock %}
+
 {% block content %}
 <div class="container my-4">
     <h1>All Posts</h1>
+    {% if posts %}
     <div class="row">
         {% for post in posts %}
-        <div class="col-md-4">
+        <div class="col-md-4 postclass">
             <div class="card mb-4 shadow-sm">
+                <img src="{{ url_for('posts.static', filename='images/default.png') }}" class="card-img-top" alt="Default image">
                 <div class="card-body">
                     <h5 class="card-title">{{ post['title'] }}</h5>
                     <p class="card-text">{{ post['content'][:100] }}...</p>
@@ -20,7 +26,7 @@
                     <p class="card-text">
                         <small class="text-muted">
                             Active: {{ 'Yes' if post['is_active'] else 'No' }} | 
-                            Date: {{ post['publication_date'] }}
+                            Date: {{ post['publish_date'] }}
                         </small>
                     </p>
                     
@@ -35,5 +41,8 @@
         </div>
         {% endfor %}
     </div>
+    {% else %}
+        <p>No posts available.</p>
+    {% endif %}
 </div>
 {% endblock %}

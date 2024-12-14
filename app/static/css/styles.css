@@ -1,10 +1,11 @@
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    margin: 0;
-    padding: 0;
     background-color: #f4f4f9;
-    color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;  /* Це дозволяє поставити футер внизу */
+    min-height: 100vh;  /* Мінімальна висота body = 100% висоти вікна браузера */
 }
 
 header {
@@ -14,14 +15,14 @@ header {
     text-align: center;
 }
 
-h1 {
-    color: palevioletred;
+h1, h2 {
+    color: #333;
 }
 
 section {
     margin: 20px auto;
     padding: 20px;
-    max-width: 800px;
+    max-width: 1000px;
     background: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -44,17 +45,6 @@ nav a:hover {
     color: #333;
 }
 
-h2 {
-    color: #4CAF50;
-}
-
-img {
-    display: block;
-    max-width: 150px;
-    margin: 10px auto;
-    border-radius: 50%;
-}
-
 footer {
     background: #4CAF50;
     color: white;
@@ -66,6 +56,65 @@ footer {
 footer p {
     margin: 0;
     font-size: 14px;
+}
+
+img {
+    display: block;
+    max-width: 150px;
+    margin: 10px auto;
+    border-radius: 50%;
+}
+
+/* Стилі для карток */
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    color: #4CAF50;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #555;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; 
+    border-radius: 8px;
+}
+
+/* Кнопки */
+.btn-primary {
+    background-color: #4CAF50;
+    border: none;
+    padding: 10px 15px;
+    font-size: 0.875rem;
+}
+
+.btn-primary:hover {
+    background-color: #45a049;
+}
+
+.btn-warning {
+    background-color: #ff9800;
+    border: none;
+    padding: 10px 15px;
+    font-size: 0.875rem;
+}
+
+.btn-warning:hover {
+    background-color: #f57c00;
 }
 
 @media (max-width: 768px) {
@@ -112,4 +161,15 @@ footer p {
     footer p {
         font-size: 12px;
     }
+}
+
+/* Секція для футера, який не рухається */
+footer {
+    background: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+    position: relative;  /* Це дозволяє футеру залишатися в кінці сторінки */
+    width: 100%;      /* Футер буде на всю ширину */
 }

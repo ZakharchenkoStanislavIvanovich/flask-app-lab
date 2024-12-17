@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit Post {% endblock %}
+
+{% block content %}
+<h1>Edit Post</h1>
+
+<form method="POST" action="{{ url_for('posts.edit_post', id=post.id) }}">
+    {{ form.hidden_tag() }}
+
+    <div>
+        {{ form.title.label }}
+        {{ form.title(class="form-control") }}
+    </div>
+
+    <div>
+        {{ form.content.label }}
+        {{ form.content(class="form-control") }}
+    </div>
+
+    <div>
+        {{ form.is_active.label }}
+        {{ form.is_active(class="form-check-input") }}
+    </div>
+
+
+
+    <div>
+        {{ form.category.label }}
+        {{ form.category(class="form-select") }}
+    </div>
+
+    <div>
+        {{ form.submit(class="btn btn-primary") }}
+    </div>
+</form>
+
+<a href="{{ url_for('posts.get_posts') }}">Back to Posts</a>
+{% endblock %}

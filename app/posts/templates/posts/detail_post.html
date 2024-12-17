@@ -1,31 +1,32 @@
-{% extends 'base.html'  %}
+{% extends 'base.html' %}
 
 {% block title %} Detailed Post {% endblock %}
 
 {% block content %}
 
-<h1>Post № {{ post["id"] }} - {{ post["title"] }}</h1>
-<p>{{ post.get('publish_date') }}</p>
-<p>{{ post.get('content') }}</p>
+<h1>Post № {{ post.id }} - {{ post.title }}</h1>
+<p>{{ post.publish_date }}</p>
+<p>{{ post.content }}</p>
 
 <p><strong>Status:</strong> 
-    {% if post["is_active"] %}
+    {% if post.is_active %}
         Active
     {% else %}
         Inactive
     {% endif %}
 </p>
 
-<a href="{{ url_for('posts.get_posts') }}">Return posts</a>
+<a href="{{ url_for('posts.get_posts') }}">Return posts</a><br>
+<a href="{{ url_for('posts.edit_post', id=post.id) }}" class="btn btn-secondary">Edit Post</a><br>
 
-<form method="POST" action="{{ url_for('posts.delete_post', id=post['id']) }}">
+<form method="POST" action="{{ url_for('posts.delete_post', id=post.id) }}">
     <button type="submit" class="btn btn-danger">Delete Post</button>
 </form>
 
-<form method="POST" action="{{ url_for('posts.toggle_active', id=post['id']) }}">
+<form method="POST" action="{{ url_for('posts.toggle_active', id=post.id) }}">
     <button type="submit" class="btn btn-warning">
-        {% if post["is_active"] %} Make Inactive {% else %} Make Active {% endif %}
+        {% if post.is_active %} Make Inactive {% else %} Make Active {% endif %}
     </button>
 </form>
 
-    {% endblock %}
+{% endblock %}

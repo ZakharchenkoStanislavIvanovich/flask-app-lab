@@ -11,10 +11,7 @@ def home():
     return render_template("home.html", agent=agent)
 
 
-@current_app.route('/resume')
-def resume():
-    page_title = "Резюме"
-    return render_template('resume.html', title=page_title)
+
 
 @current_app.errorhandler(404)
 def page_not_found(error):

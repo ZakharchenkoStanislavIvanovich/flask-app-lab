@@ -5,6 +5,11 @@ from .utils import load_posts, save_posts
 import datetime
 import json
 
+@post_bp.route('/resume')
+def resume():
+    page_title = "Резюме"
+    return render_template('resume.html', title=page_title)
+
 def load_posts():
     try:
         with open('posts.json', 'r') as file:

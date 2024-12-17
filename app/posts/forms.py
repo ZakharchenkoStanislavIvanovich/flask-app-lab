@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, BooleanField, DateField, SelectField, SubmitField
+from wtforms import StringField, TextAreaField, BooleanField, DateTimeLocalField, SelectField, SubmitField
 from wtforms.validators import DataRequired, Length
 
 # Список категорій
@@ -11,6 +11,11 @@ class PostForm(FlaskForm):
 
     is_active = BooleanField("Active Post")
 
-    publish_date = DateField("Publish Date", format='%Y-%m-%d', validators=[DataRequired()]) 
+    # Використовуємо DateTimeLocalField для дати та часу
+    publish_date = DateTimeLocalField(
+        "Publish Date",
+        format='%Y-%m-%dT%H:%M',
+        validators=[DataRequired()]
+    )
     category = SelectField("Category", choices=CATEGORIES, validators=[DataRequired()])
     submit = SubmitField("Add Post")
